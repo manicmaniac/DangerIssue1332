@@ -1,0 +1,17 @@
+name: Lint
+on: push
+defaults:
+  run:
+    shell: bash
+jobs:
+  lint:
+    runs-on: macOS-latest
+    env:
+      DANGER_GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_TOKEN}}
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v2
+      - run: brew install mint
+      - run: mint bootstrap
+      - run: bundle install
+      - run: bundle exec danger
