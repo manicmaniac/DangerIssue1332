@@ -12,6 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: brew install mint
+      - uses: actions/cache@v2
+        with:
+          path: ~/.mint
+          key: ${{ runner.os }}-mint-${{ hashFiles('Mintfile') }}
+          restore-keys: |
+            ${{ runner.os }}-mint-
       - run: mint bootstrap
       - run: bundle install
       - run: bundle exec danger
